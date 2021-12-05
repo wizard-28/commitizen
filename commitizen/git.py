@@ -55,8 +55,7 @@ class GitTag(GitObject):
 
 
 def tag(tag: str, annotated: bool = False):
-    c = cmd.run(f"git tag -a {tag} -m {tag}" if annotated else f"git tag {tag}")
-    return c
+    return cmd.run(f"git tag -a {tag} -m {tag}" if annotated else f"git tag {tag}")
 
 
 def commit(message: str, args: str = ""):
@@ -119,12 +118,10 @@ def get_tags(dateformat: str = "%Y-%m-%d") -> List[GitTag]:
     if c.err or not c.out:
         return []
 
-    git_tags = [
+    return [
         GitTag.from_line(line=line, inner_delimiter=inner_delimiter)
         for line in c.out.split("\n")[:-1]
     ]
-
-    return git_tags
 
 
 def tag_exist(tag: str) -> bool:
@@ -161,6 +158,4 @@ def is_staging_clean() -> bool:
 
 def is_git_project() -> bool:
     c = cmd.run("git rev-parse --is-inside-work-tree")
-    if c.out.strip() == "true":
-        return True
-    return False
+    return c.out.strip() == "true"

@@ -70,8 +70,7 @@ class Changelog:
             raise NoRevisionError()
         if score < SIMILARITY_THRESHOLD:
             raise NoRevisionError()
-        start_rev = tag.name
-        return start_rev
+        return tag.name
 
     def __call__(self):
         commit_parser = self.cz.commit_parser

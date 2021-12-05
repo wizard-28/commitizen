@@ -68,11 +68,7 @@ class Commit:
 
         retry: bool = self.arguments.get("retry")
 
-        if retry:
-            m = self.read_backup_message()
-        else:
-            m = self.prompt_commit_questions()
-
+        m = self.read_backup_message() if retry else self.prompt_commit_questions()
         out.info(f"\n{m}\n")
 
         if dry_run:
@@ -80,11 +76,7 @@ class Commit:
 
         signoff: bool = self.arguments.get("signoff")
 
-        if signoff:
-            c = git.commit(m, "-s")
-        else:
-            c = git.commit(m)
-
+        c = git.commit(m, "-s") if signoff else git.commit(m)
         if c.return_code != 0:
             out.error(c.err)
 

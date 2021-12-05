@@ -40,8 +40,7 @@ def read_cfg() -> BaseConfig:
 
         if _conf.is_empty_config:
             continue
-        else:
-            conf = _conf
-            break
+        conf = _conf
+        break
 
     return conf

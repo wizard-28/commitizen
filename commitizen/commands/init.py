@@ -19,8 +19,6 @@ class Init:
         self.cz = factory.commiter_factory(self.config)
 
     def __call__(self):
-        values_to_add = {}
-
         # No config for commitizen exist
         if not self.config.path:
             config_path = self._ask_config_path()
@@ -33,7 +31,8 @@ class Init:
 
             self.config.init_empty_config_content()
 
-            values_to_add["name"] = self._ask_name()
+            values_to_add = {'name': self._ask_name()}
+
             tag = self._ask_tag()
             values_to_add["version"] = Version(tag).public
             values_to_add["tag_format"] = self._ask_tag_format(tag)
@@ -49,22 +48,20 @@ class Init:
             out.line(f"Config file {self.config.path} already exists")
 
     def _ask_config_path(self) -> str:
-        name = questionary.select(
+        return questionary.select(
             "Please choose a supported config file: (default: pyproject.toml)",
             choices=config_files,
             default="pyproject.toml",
             style=self.cz.style,
         ).ask()
-        return name
 
     def _ask_name(self) -> str:
-        name = questionary.select(
+        return questionary.select(
             "Please choose a cz (commit rule): (default: cz_conventional_commits)",
             choices=list(registry.keys()),
             default="cz_conventional_commits",
             style=self.cz.style,
         ).ask()
-        return name
 
     def _ask_tag(self) -> str:
         latest_tag = get_latest_tag_name()

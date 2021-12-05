@@ -45,11 +45,13 @@ def find_increment(
 
                 if increment == "MAJOR":
                     continue
-                elif increment == "MINOR" and new_increment == "MAJOR":
+                elif (
+                    increment == "MINOR"
+                    and new_increment == "MAJOR"
+                    or increment == "PATCH"
+                    or increment is None
+                ):
                     increment = new_increment
-                elif increment == "PATCH" or increment is None:
-                    increment = new_increment
-
     return increment
 
 
@@ -74,8 +76,7 @@ def prerelease_generator(current_version: str, prerelease: Optional[str] = None)
         new_prerelease_number = prev_prerelease + 1
     else:
         new_prerelease_number = 0
-    pre_version = f"{prerelease}{new_prerelease_number}"
-    return pre_version
+    return f"{prerelease}{new_prerelease_number}"
 
 
 def semver_generator(current_version: str, increment: str = None) -> str:

@@ -114,8 +114,7 @@ def test_update_version_in_files(version_files, file_regression):
 def test_partial_update_of_file(version_repeated_file, file_regression):
     old_version = "1.2.3"
     new_version = "2.0.0"
-    regex = "version"
-    location = f"{version_repeated_file}:{regex}"
+    location = f'{version_repeated_file}:version'
 
     bump.update_version_in_files(old_version, new_version, [location])
     with open(version_repeated_file, "r") as f:

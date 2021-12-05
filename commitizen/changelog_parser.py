@@ -59,7 +59,7 @@ def find_version_blocks(filepath: str) -> Generator:
                 continue
 
             if line.startswith("## "):
-                if len(block) > 0:
+                if block:
                     yield block
                 block = [line]
             else:
@@ -95,8 +95,7 @@ def transform_change_type(change_type: str) -> str:
     for match_value, output in CATEGORIES:
         if re.search(match_value, _change_type_lower):
             return output
-    else:
-        raise ValueError(f"Could not match a change_type with {change_type}")
+    raise ValueError(f"Could not match a change_type with {change_type}")
 
 
 def generate_block_tree(block: List[str]) -> Dict:

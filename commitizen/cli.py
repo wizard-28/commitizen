@@ -307,7 +307,7 @@ def main():
 
     if args.name:
         conf.update({"name": args.name})
-    elif not args.name and not conf.path:
+    elif not conf.path:
         conf.update({"name": "cz_conventional_commits"})
 
     if args.debug:

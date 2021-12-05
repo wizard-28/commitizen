@@ -40,7 +40,7 @@ class ConventionalCommitsCz(BaseCommitizen):
     }
 
     def questions(self) -> List[Dict[str, Any]]:
-        questions: List[Dict[str, Any]] = [
+        return [
             {
                 "type": "list",
                 "name": "prefix",
@@ -147,7 +147,6 @@ class ConventionalCommitsCz(BaseCommitizen):
                 ),
             },
         ]
-        return questions
 
     def message(self, answers: dict) -> str:
         prefix = answers["prefix"]
@@ -166,9 +165,7 @@ class ConventionalCommitsCz(BaseCommitizen):
         if footer:
             footer = f"\n\n{footer}"
 
-        message = f"{prefix}{scope}: {subject}{body}{footer}"
-
-        return message
+        return f"{prefix}{scope}: {subject}{body}{footer}"
 
     def example(self) -> str:
         return (

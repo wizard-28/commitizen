@@ -8,7 +8,7 @@ __all__ = ["JiraSmartCz"]
 
 class JiraSmartCz(BaseCommitizen):
     def questions(self) -> List[Dict[str, Any]]:
-        questions = [
+        return [
             {
                 "type": "input",
                 "name": "message",
@@ -42,7 +42,6 @@ class JiraSmartCz(BaseCommitizen):
                 "filter": lambda x: "#comment " + x if x else "",
             },
         ]
-        return questions
 
     def message(self, answers) -> str:
         return " ".join(

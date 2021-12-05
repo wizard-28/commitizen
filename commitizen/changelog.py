@@ -57,8 +57,7 @@ def transform_change_type(change_type: str) -> str:
     for match_value, output in CATEGORIES:
         if re.search(match_value, _change_type_lower):
             return output
-    else:
-        raise ValueError(f"Could not match a change_type with {change_type}")
+    raise ValueError(f"Could not match a change_type with {change_type}")
 
 
 def get_commit_tag(commit: GitCommit, tags: List[GitTag]) -> Optional[GitTag]:
@@ -165,8 +164,7 @@ def render_changelog(tree: Iterable) -> str:
     loader = PackageLoader("commitizen", "templates")
     env = Environment(loader=loader, trim_blocks=True)
     jinja_template = env.get_template("keep_a_changelog_template.j2")
-    changelog: str = jinja_template.render(tree=tree)
-    return changelog
+    return jinja_template.render(tree=tree)
 
 
 def parse_version_from_markdown(value: str) -> Optional[str]:
